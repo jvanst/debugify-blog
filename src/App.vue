@@ -1,38 +1,55 @@
 <template>
-  <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+  <v-app :dark="dark">
+    <toolbar/>
+    <v-content> <router-view /> </v-content>
+    <snackbar/>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld'
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { State, Action, Mutation } from "vuex-class";
+import Toolbar from "@/components/Toolbar.vue";
+import Snackbar from "@/components/Snackbar.vue";
+import firebase from "@/firebase";
 
-export default {
-  name: 'App',
+@Component({
   components: {
-    HelloWorld
-  },
-  data () {
-    return {
-      //
-    }
+    Toolbar,
+    Snackbar
+  }
+})
+export default class App extends Vue {
+  title: string = "Blog";
+
+  @State(state => state.dark)
+  dark!: Boolean;
+
+  @Action("user/getPermission") getPermission: any;
+
+  @Mutation("user/setUser") setUser: any;
+  @Mutation("user/setPermission") setPermission: any;
+  @Mutation("user/setLoggedIn") setLoggedIn: any;
+
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setUser({
+          displayName: user.displayName,
+          email: user.email
+        });
+        this.setLoggedIn(true);
+        this.getPermission();
+      } else {
+        this.setUser({
+          displayName: "",
+          email: "",
+          isLoggedIn: false
+        });
+        this.setLoggedIn(false);
+        this.setPermission(0);
+      }
+    });
   }
 }
 </script>
