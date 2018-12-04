@@ -134,10 +134,10 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setPermission", doc.data().permission);
         } else {
           firebase
-          .firestore()
-          .collection("user")
-          .doc(firebase.auth().currentUser.uid)
-          .set({ permission: 20 });
+            .firestore()
+            .collection("user")
+            .doc(firebase.auth().currentUser.uid)
+            .set({ permission: 20 });
           commit("setPermission", 20);
         }
       });

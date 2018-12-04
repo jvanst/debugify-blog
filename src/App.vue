@@ -1,7 +1,11 @@
 <template>
   <v-app :dark="dark">
     <toolbar/>
-    <v-content> <router-view /> </v-content>
+    <v-content>
+      <keep-alive include="Home">
+        <router-view />
+      </keep-alive>
+    </v-content>
     <snackbar/>
   </v-app>
 </template>
@@ -9,6 +13,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Action, Mutation } from "vuex-class";
+
 import Toolbar from "@/components/Toolbar.vue";
 import Snackbar from "@/components/Snackbar.vue";
 import firebase from "@/firebase";

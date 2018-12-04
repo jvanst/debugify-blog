@@ -1,3 +1,5 @@
+import { QuerySnapshot } from "firebase/firestore";
+
 export interface RootState {
   dark: Boolean;
 }
@@ -12,9 +14,14 @@ export interface UserState {
 }
 
 export interface Post {
+  author: String;
   title: String;
+  date: Number;
+  short_description: String;
 }
 
 export interface PostState {
   posts: Array<Post>;
+  snapshot: QuerySnapshot;
+  loading: Boolean;
 }

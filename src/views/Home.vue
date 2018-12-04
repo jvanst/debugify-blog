@@ -1,34 +1,42 @@
 <template>
   <div class="home">
     <v-container id="post-container">
-      <post-preview v-for="(post, index) in posts" :key="index" :post="post"/>
+
+        <post-preview-fetch>
+          <template slot="loading">
+            <post-preview-loading
+              v-for="(n, index) in 3"
+              :key="`loading-${index}`"
+              />
+          </template>
+          <template slot="posts" slot-scope="{ posts }">
+            <post-preview
+              v-for="(post, index) in posts"
+              :key="index"
+              :post="post"
+              />              
+          </template>
+        </post-preview-fetch>
+
     </v-container>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { State, Action } from "vuex-class";
-import { Post } from "@/store/types";
+
 import PostPreview from "@/components/PostPreview.vue";
+import PostPreviewFetch from "@/components/PostPreviewFetch.vue";
+import PostPreviewLoading from "@/components/PostPreviewLoading.vue";
 
 @Component({
   components: {
-    PostPreview
+    PostPreview,
+    PostPreviewFetch,
+    PostPreviewLoading
   }
 })
-export default class Home extends Vue {
-  title: String = "Sample Title";
-
-  @State(state => state.post.posts)
-  posts!: Post;
-
-  @Action("post/getPosts") getPosts: any;
-
-  created() {
-    this.getPosts();
-  }
-}
+export default class Home extends Vue {}
 </script>
 
 <style>

@@ -22,28 +22,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { State, Getter, Action } from "vuex-class";
 
 @Component
 export default class Post extends Vue {
-  post: Object = [
-    {
-      id: Number,
-      title: String,
-      short_description: String
-    }
-  ];
+  @Prop() id!: Number;
 
-  constructor() {
-    super();
-    this.post = {
-      id: 1,
-      title: "Post Title",
-      author: "James Vansteenkiste",
-      short_description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eaque error
-          voluptatem quam exercitationem sit possimus doloremque placeat enim porro
-          accusantium, impedit aliquid at et cupiditate ad dolor expedita aperiam?`
-    };
+  @Getter("post/byId") getById: any;
+
+  @Action("post/fetchPost") fetchPost: any;
+
+  get post() {
+    return this.getById(this.id);
+  }
+
+  created() {
+    this.fetchPost(this.id);
   }
 }
 </script>

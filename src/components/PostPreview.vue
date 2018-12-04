@@ -12,11 +12,11 @@
       {{ post.title }}
       <v-spacer/>
       <span class="caption">
-        <i>December 1st</i>
+        <i>{{ new Date(post.date).toLocaleString() }}</i>
       </span>
     </v-card-title>
     <v-card-title class="pt-0 pb-0">
-      By: {{ post.author }}
+      By {{ post.author }}
     </v-card-title>
     <v-card-text>
       {{ post.short_description }}

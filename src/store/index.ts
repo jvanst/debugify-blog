@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   state: {
-    dark: true
+    dark: false
   },
   mutations: {
     setDark(state, value) {
