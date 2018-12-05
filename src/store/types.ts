@@ -1,27 +1,29 @@
 import { QuerySnapshot } from "firebase/firestore";
 
 export interface RootState {
-  dark: Boolean;
+  dark: boolean;
 }
 
 export interface UserState {
-  displayName: String;
-  email: String;
-  isLoggedIn: Boolean;
-  permission: Number;
-  loading: Boolean;
-  error: Boolean;
+  displayName: string;
+  email: string;
+  isLoggedIn: boolean;
+  permission: number;
+  loading: boolean;
+  error: boolean;
 }
 
 export interface Post {
-  author: String;
-  title: String;
-  date: Number;
-  short_description: String;
+  id: string;
+  author: string;
+  title: string;
+  date: number;
+  short_description: string;
+  contentHTML: string;
 }
 
 export interface PostState {
-  posts: Array<Post>;
+  posts: { [id: string]: Post };
   snapshot: QuerySnapshot;
-  loading: Boolean;
+  loading: boolean;
 }

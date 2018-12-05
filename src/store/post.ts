@@ -6,33 +6,38 @@ import firebase from "@/firebase";
 import snackbar from "@/plugins/snackbar";
 
 const state: PostState = {
-  posts: [],
+  posts: {},
   snapshot: null,
   loading: false
 };
 
-const getters: GetterTree<PostState, RootState> = {
-  byId: state => id => {
-    return state.posts.find(post => post.id === id);
-  }
-};
+const getters: GetterTree<PostState, RootState> = {};
 
 const actions: ActionTree<PostState, RootState> = {
   fetchPost({ commit }, id) {
     commit("setLoading", true);
 
-    const fetch = firebase
+    const fetchContent = firebase
       .firestore()
       .collection("posts")
       .doc(id)
-      .collection("content");
+      .collection("content")
+      .doc("html");
 
-    fetch.get().then(snapshot => {
-      snapshot.forEach(doc => {
-        // do something with content
-      });
-      commit("setLoading", false);
-    });
+    const fetch = firebase
+      .firestore()
+      .collection("posts")
+      .doc(id);
+
+    Promise.all([fetchContent.get(), fetch.get()]).then(
+      ([content, post]: Array<QuerySnapshot>) => {
+        let newPost = post.data();
+        newPost.id = post.id;
+        newPost.content = content.data().value;
+        commit("addPost", newPost);
+        commit("setLoading", false);
+      }
+    );
   },
   fetchPosts({ state, commit }) {
     commit("setLoading", true);
@@ -49,7 +54,7 @@ const actions: ActionTree<PostState, RootState> = {
         .get()
         .then(snapshot => {
           commit("setSnapshot", snapshot);
-          commit("setPosts", snapshot);
+          commit("addPosts", snapshot);
           commit("setLoading", false);
         })
         .catch(err => snackbar.showSnackbar(err.message, "error"));
@@ -59,7 +64,7 @@ const actions: ActionTree<PostState, RootState> = {
         .get()
         .then(snapshot => {
           commit("setSnapshot", snapshot);
-          commit("setPosts", snapshot);
+          commit("addPosts", snapshot);
           commit("setLoading", false);
         })
         .catch(err => snackbar.showSnackbar(err.message, "error"));
@@ -68,16 +73,17 @@ const actions: ActionTree<PostState, RootState> = {
 };
 
 const mutations: MutationTree<PostState> = {
-  setLoading(state, payload: Boolean) {
-    state.loading = payload;
+  addPost(state, post: Post) {
+    state.posts[post.id] = post;
   },
-  setPosts(state, snapshot: QuerySnapshot) {
+  addPosts(state, snapshot: QuerySnapshot) {
     snapshot.forEach(doc => {
-      const post = doc.data();
-      post.id = doc.id;
-      console.log(post);
-      state.posts.push(post);
+      state.posts[doc.id] = doc.data();
+      state.posts[doc.id].id = doc.id;
     });
+  },
+  setLoading(state, payload: boolean) {
+    state.loading = payload;
   },
   setSnapshot(state, snapshot: QuerySnapshot) {
     state.snapshot = snapshot;

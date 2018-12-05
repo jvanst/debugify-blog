@@ -15,9 +15,10 @@ export default new Router({
     },
     {
       path: "/post/:id",
-      name: "post",
+      name: "single",
       props: true,
-      component: () => import(/* webpackChunkName: "post" */ "./views/Post.vue")
+      component: () =>
+        import(/* webpackChunkName: "post" */ "./views/Single.vue")
     },
     {
       path: "/create",

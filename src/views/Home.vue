@@ -1,23 +1,21 @@
 <template>
   <div class="home">
     <v-container id="post-container">
-
-        <post-preview-fetch>
-          <template slot="loading">
-            <post-preview-loading
-              v-for="(n, index) in 3"
-              :key="`loading-${index}`"
-              />
-          </template>
-          <template slot="posts" slot-scope="{ posts }">
-            <post-preview
-              v-for="(post, index) in posts"
-              :key="index"
-              :post="post"
-              />              
-          </template>
-        </post-preview-fetch>
-
+      <post-preview-fetch>
+        <template slot="loading">
+          <post-preview-loading
+            v-for="(n, index) in 3"
+            :key="`loading-${index}`"
+            />
+        </template>
+        <template slot="posts" slot-scope="{ posts }">
+          <post-preview
+            v-for="(post, index) in posts"
+            :key="index"
+            :post="post"
+            />              
+        </template>
+      </post-preview-fetch>
     </v-container>
   </div>
 </template>

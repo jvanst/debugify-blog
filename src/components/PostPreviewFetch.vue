@@ -11,6 +11,8 @@ import { State, Action } from "vuex-class";
 
 @Component
 export default class PostPreviewFetch extends Vue {
+  @Prop() id!: string;
+
   @State(state => state.post.posts)
   posts: any;
 

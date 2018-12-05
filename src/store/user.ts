@@ -1,5 +1,6 @@
 import { Module, GetterTree, ActionTree, MutationTree } from "vuex";
 import { RootState, UserState } from "./types";
+import { DocumentData } from "firebase/firestore";
 
 import firebase from "@/firebase";
 import router from "@/router";
@@ -94,11 +95,16 @@ const actions: ActionTree<UserState, RootState> = {
     firebase
       .auth()
       .createUserWithEmailAndPassword(payload.email, payload.password)
-      .then(() =>
-        firebase.auth().currentUser.updateProfile({
-          displayName: payload.displayName
-        })
-      )
+      .then(() => {
+        const user = firebase.auth().currentUser;
+        if (user) {
+          return user.updateProfile({
+            displayName: payload.displayName,
+            photoURL: null
+          });
+        }
+        return;
+      })
       .then(() => {
         dispatch("getPermission");
         commit("setLoading", false);
@@ -124,23 +130,27 @@ const actions: ActionTree<UserState, RootState> = {
       });
   },
   getPermission({ commit }) {
-    firebase
-      .firestore()
-      .collection("user")
-      .doc(firebase.auth().currentUser.uid)
-      .get()
-      .then(doc => {
-        if (doc.exists) {
-          commit("setPermission", doc.data().permission);
-        } else {
-          firebase
-            .firestore()
-            .collection("user")
-            .doc(firebase.auth().currentUser.uid)
-            .set({ permission: 20 });
-          commit("setPermission", 20);
-        }
-      });
+    const user = firebase.auth().currentUser;
+    if (user) {
+      firebase
+        .firestore()
+        .collection("user")
+        .doc(user.uid)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            const data: DocumentData = doc.data();
+            commit("setPermission", data.permission);
+          } else {
+            firebase
+              .firestore()
+              .collection("user")
+              .doc(user.uid)
+              .set({ permission: 20 });
+            commit("setPermission", 20);
+          }
+        });
+    }
   }
 };
 
