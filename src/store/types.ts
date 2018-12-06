@@ -9,6 +9,7 @@ export interface UserState {
   email: string;
   isLoggedIn: boolean;
   permission: number;
+  photoURL: string;
   loading: boolean;
   error: boolean;
 }

@@ -29,15 +29,15 @@ const actions: ActionTree<PostState, RootState> = {
       .collection("posts")
       .doc(id);
 
-    Promise.all([fetchContent.get(), fetch.get()]).then(
-      ([content, post]: Array<QuerySnapshot>) => {
+    Promise.all([fetchContent.get(), fetch.get()])
+      .then(([content, post]: Array<QuerySnapshot>) => {
         let newPost = post.data();
         newPost.id = post.id;
         newPost.content = content.data().value;
         commit("addPost", newPost);
         commit("setLoading", false);
-      }
-    );
+      })
+      .catch(err => snackbar.showSnackbar(err.message, "error"));
   },
   fetchPosts({ state, commit }) {
     commit("setLoading", true);

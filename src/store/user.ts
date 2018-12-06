@@ -11,6 +11,7 @@ const state: UserState = {
   email: "",
   isLoggedIn: false,
   loading: false,
+  photoURL: "",
   error: false,
   permission: 0
 };
@@ -29,6 +30,7 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setUser", {
             displayName: ret.user.displayName,
             email: ret.user.email,
+            photoUrl: ret.user.photoURL,
             isLoggedIn: true
           });
           commit("setLoggedIn", true);
@@ -52,6 +54,7 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setUser", {
             displayName: ret.user.displayName,
             email: ret.user.email,
+            photoUrl: ret.user.photoURL,
             isLoggedIn: true
           });
           commit("setLoggedIn", true);
@@ -74,6 +77,7 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setUser", {
             displayName: ret.user.displayName,
             email: ret.user.email,
+            photoUrl: ret.user.photoURL,
             isLoggedIn: true
           });
           dispatch("getPermission");
@@ -158,6 +162,7 @@ const mutations: MutationTree<UserState> = {
   setUser(state, payload) {
     state.displayName = payload.displayName;
     state.email = payload.email;
+    state.photoURL = payload.photoURL;
   },
   setLoggedIn(state, payload) {
     state.isLoggedIn = payload;

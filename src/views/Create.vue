@@ -1,8 +1,8 @@
 <template>
   <v-container fluid class="pa-1 pt-2">
-    <v-card style="max-width:800px" class="mx-auto">
+    <v-card style="max-width:1000px" class="mx-auto">
       <v-card-title class="headline">
-        <v-btn icon @click.native="$router.go(-1)"><v-icon>keyboard_backspace</v-icon></v-btn> Create a new post
+        Create a new post
       </v-card-title>
       <v-layout row wrap class="pl-4 pr-4 pb-4">
         <v-flex xs12>

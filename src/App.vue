@@ -41,7 +41,8 @@ export default class App extends Vue {
       if (user) {
         this.setUser({
           displayName: user.displayName,
-          email: user.email
+          email: user.email,
+          photoURL: user.photoURL
         });
         this.setLoggedIn(true);
         this.getPermission();
@@ -49,6 +50,7 @@ export default class App extends Vue {
         this.setUser({
           displayName: "",
           email: "",
+          photoURL: "",
           isLoggedIn: false
         });
         this.setLoggedIn(false);

@@ -26,22 +26,22 @@
     </v-btn>
     <v-menu
       v-if="user.isLoggedIn"
-      bottom
-      left
       :close-on-content-click="false"
-      :nudge-width="230"
       offset-y
-      offset-x
+      left
+      :min-width="300"
       >
       <v-avatar slot="activator">
-        <v-icon size="44px">account_circle</v-icon>
+        <v-img size="44px" v-if="user.photoURL" :src="user.photoURL"/>
+        <v-icon v-else size="44px">account_circle</v-icon>
       </v-avatar>
       <v-card>
         <v-list>
           <v-list-tile avatar>
             <v-list-tile-avatar>
               <v-avatar slot="activator">
-                <v-icon size="44px">account_circle</v-icon>
+                <v-img size="44px" v-if="user.photoURL" :src="user.photoURL"/>
+                <v-icon v-else size="44px">account_circle</v-icon>
               </v-avatar>
             </v-list-tile-avatar>
             <v-list-tile-content>
