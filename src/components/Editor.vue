@@ -19,10 +19,10 @@ export default class Editor extends Vue {
     this.editor.on("text-change", () => this.update());
   }
   update() {
-    this.$emit(
-      "input",
-      this.editor.getText() ? this.editor.root.innerHTML : ""
-    );
+    this.$emit("input", {
+      text: this.editor.getText(),
+      html: this.editor.root.innerHTML
+    });
   }
 }
 </script>

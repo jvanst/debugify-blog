@@ -14,6 +14,33 @@ const state: PostState = {
 const getters: GetterTree<PostState, RootState> = {};
 
 const actions: ActionTree<PostState, RootState> = {
+  createPost({ commit }, payload: Post) {
+    commit("setLoading", true);
+
+    firebase
+      .firestore()
+      .collection("posts")
+      .add({
+        title: payload.title
+      })
+      .then(ret => {
+        const post = payload;
+        post.id = ret.id;
+        commit("addPost", post);
+        return post.id;
+      })
+      .then(id =>
+        firebase
+          .firestore()
+          .collection("posts")
+          .doc(id)
+          .collection("content")
+          .doc("html")
+          .set({ value: payload.contentHTML })
+      )
+      .then(() => commit("setLoading", false))
+      .catch(err => snackbar.showSnackbar(err.message, "error"));
+  },
   fetchPost({ commit }, id) {
     commit("setLoading", true);
 
@@ -33,7 +60,7 @@ const actions: ActionTree<PostState, RootState> = {
       .then(([content, post]: Array<QuerySnapshot>) => {
         let newPost = post.data();
         newPost.id = post.id;
-        newPost.content = content.data().value;
+        newPost.contentHTML = content.data().value;
         commit("addPost", newPost);
         commit("setLoading", false);
       })

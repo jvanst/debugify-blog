@@ -15,7 +15,7 @@
       ></v-text-field>
     </v-card>
     <v-card>
-      <editor :value="content" v-on:input="input" />
+      <editor :value="contentHTML" v-on:input="input" />
     </v-card>
     <v-layout>
       <v-flex xs6 class="text-xs-left">
@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { State, Action } from "vuex-class";
 import editor from "@/components/Editor.vue";
 import uploadButton from "@/components/ImageUpload.vue";
 
@@ -41,16 +42,27 @@ import uploadButton from "@/components/ImageUpload.vue";
 })
 export default class Home extends Vue {
   title: string = "";
-  content: string = "";
+  contentHTML: string = "";
+  contentPlain: string = "";
   image: string = "";
   editor: any;
 
+  @State(state => state.post.loading)
+  loading!: boolean;
+
+  @Action("post/createPost") createPost: any;
+
   publish() {
-    // do something
+    this.createPost({
+      title: this.title,
+      contentHTML: this.contentHTML,
+      short_description: this.contentPlain.substring(0, 60)
+    });
   }
 
   input(e) {
-    this.content = e;
+    this.contentHTML = e.html;
+    this.contentPlain = e.text;
   }
   upload(e) {
     this.image = e;

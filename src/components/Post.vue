@@ -15,7 +15,7 @@
     <v-card-title class="pt-0 pb-0">
       By: {{ post.author }}
     </v-card-title>
-    <v-card-text v-html="post.content"/>
+    <v-card-text v-html="post.contentHTML"/>
   </v-card>
 </template>
 
@@ -30,7 +30,7 @@ export default class Post extends Vue {
       title: String,
       author: String,
       short_description: String,
-      content: String
+      contentHTML: String
     }
   })
   post!: Object;
