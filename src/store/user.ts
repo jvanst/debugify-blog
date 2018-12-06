@@ -36,6 +36,7 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setLoggedIn", true);
           commit("setLoading", false);
           router.push("/");
+          snackbar.showSnackbar(`Welcome ${ret.user.displayName}!`, "success");
         }
       })
       .catch(err => {
@@ -60,6 +61,7 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setLoggedIn", true);
           commit("setLoading", false);
           router.push("/");
+          snackbar.showSnackbar(`Welcome ${ret.user.displayName}!`, "success");
         }
       })
       .catch(err => {
@@ -84,6 +86,7 @@ const actions: ActionTree<UserState, RootState> = {
           commit("setLoggedIn", true);
           commit("setLoading", false);
           router.push("/");
+          snackbar.showSnackbar(`Welcome ${ret.user.displayName}!`, "success");
         }
       })
       .catch(err => {
@@ -93,6 +96,7 @@ const actions: ActionTree<UserState, RootState> = {
   },
   logout({ commit }) {
     firebase.auth().signOut();
+    snackbar.showSnackbar("You were logged out.", "info");
   },
   register({ commit, dispatch }, payload): any {
     commit("setLoading", true);

@@ -61,7 +61,7 @@
         </v-list>
         <v-divider/>
         <v-card-actions>
-          <v-btn flat>
+          <v-btn flat disabled>
             Account
           </v-btn>
           <v-spacer/>
