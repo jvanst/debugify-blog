@@ -22,7 +22,11 @@
         <uploadButton :image="image" v-on:upload="upload"/>
       </v-flex>
       <v-flex xs6 class="text-xs-right">
-        <v-btn class="primary mr-0 mt-3" @click.native="publish()">Publish</v-btn>
+        <v-btn
+          class="primary mr-0 mt-3"
+          @click.native="publish()"
+          :loading="loading"
+          >Publish</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -59,7 +63,6 @@ export default class Home extends Vue {
       short_description: this.contentPlain.substring(0, 60)
     });
   }
-
   input(e) {
     this.contentHTML = e.html;
     this.contentPlain = e.text;

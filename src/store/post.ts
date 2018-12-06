@@ -3,6 +3,7 @@ import { QuerySnapshot } from "firebase/firestore";
 import { RootState, PostState, Post } from "./types";
 
 import firebase from "@/firebase";
+import router from "@/router";
 import snackbar from "@/plugins/snackbar";
 
 const state: PostState = {
@@ -15,6 +16,7 @@ const getters: GetterTree<PostState, RootState> = {};
 
 const actions: ActionTree<PostState, RootState> = {
   createPost({ commit }, payload: Post) {
+    const post = payload;
     commit("setLoading", true);
 
     firebase
@@ -24,7 +26,6 @@ const actions: ActionTree<PostState, RootState> = {
         title: payload.title
       })
       .then(ret => {
-        const post = payload;
         post.id = ret.id;
         commit("addPost", post);
         return post.id;
@@ -38,7 +39,11 @@ const actions: ActionTree<PostState, RootState> = {
           .doc("html")
           .set({ value: payload.contentHTML })
       )
-      .then(() => commit("setLoading", false))
+      .then(() => {
+        commit("setLoading", false);
+        router.push(`/post/${post.id}`);
+        snackbar.showSnackbar('Your post was submitted', 'success');
+      })
       .catch(err => snackbar.showSnackbar(err.message, "error"));
   },
   fetchPost({ commit }, id) {

@@ -3,10 +3,7 @@
     <v-container id="post-container">
       <post-fetch :id="id">
         <template slot="loading">
-          <post-loading
-            v-for="(n, index) in 3"
-            :key="`loading-${index}`"
-            />
+          <post-loading/>
         </template>
         <template slot="post" slot-scope="{ post }">
           <post :post="post"/>              
