@@ -1,23 +1,15 @@
 import * as functions from 'firebase-functions';
+import { DocumentSnapshot } from 'firebase/firestore';
 
 exports.createPost = functions.firestore
   .document("posts/{postId}")
-  .onCreate((snap, context) => {
-    let title = "";
-    let short_description = "";
-
-    if (snap.data().title) {
-      title = snap.data().title
-    }
-    if (snap.data().short_description) {
-      short_description = snap.data().short_description;
-    }
-
+  .onCreate((snap: DocumentSnapshot) => {
     return snap.ref.set({
-      title,
-      short_description,
+      uid: snap.data().uid,
+      author: snap.data().author,
+      title: snap.data().title,
+      short_description: snap.data().short_description,
       date: new Date().getTime(),
-      author: 'James',
     });
   });
 

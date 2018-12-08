@@ -15,38 +15,7 @@ const state: PostState = {
 const getters: GetterTree<PostState, RootState> = {};
 
 const actions: ActionTree<PostState, RootState> = {
-  createPost({ commit }, payload: Post) {
-    const post = payload;
-    commit("setLoading", true);
-
-    firebase
-      .firestore()
-      .collection("posts")
-      .add({
-        title: payload.title
-      })
-      .then(ret => {
-        post.id = ret.id;
-        commit("addPost", post);
-        return post.id;
-      })
-      .then(id =>
-        firebase
-          .firestore()
-          .collection("posts")
-          .doc(id)
-          .collection("content")
-          .doc("html")
-          .set({ value: payload.contentHTML })
-      )
-      .then(() => {
-        commit("setLoading", false);
-        router.push(`/post/${post.id}`);
-        snackbar.showSnackbar('Your post was submitted', 'success');
-      })
-      .catch(err => snackbar.showSnackbar(err.message, "error"));
-  },
-  fetchPost({ commit }, id) {
+  fetchPost({ commit }, id: string) {
     commit("setLoading", true);
 
     const fetchContent = firebase
@@ -67,9 +36,9 @@ const actions: ActionTree<PostState, RootState> = {
         newPost.id = post.id;
         newPost.contentHTML = content.data().value;
         commit("addPost", newPost);
-        commit("setLoading", false);
       })
-      .catch(err => snackbar.showSnackbar(err.message, "error"));
+      .catch(err => snackbar.showSnackbar(err.message, "error"))
+      .finally(() => commit("setLoading", false));
   },
   fetchPosts({ state, commit }) {
     commit("setLoading", true);
@@ -87,9 +56,9 @@ const actions: ActionTree<PostState, RootState> = {
         .then(snapshot => {
           commit("setSnapshot", snapshot);
           commit("addPosts", snapshot);
-          commit("setLoading", false);
         })
-        .catch(err => snackbar.showSnackbar(err.message, "error"));
+        .catch(err => snackbar.showSnackbar(err.message, "error"))
+        .finally(() => commit("setLoading", false));
     } else {
       fetch
         .startAt(state.snapshot.docs[state.snapshot.docs.length - 1]) // Start at last fetched doc
@@ -97,14 +66,110 @@ const actions: ActionTree<PostState, RootState> = {
         .then(snapshot => {
           commit("setSnapshot", snapshot);
           commit("addPosts", snapshot);
-          commit("setLoading", false);
         })
-        .catch(err => snackbar.showSnackbar(err.message, "error"));
+        .catch(err => snackbar.showSnackbar(err.message, "error"))
+        .finally(() => commit("setLoading", false));
     }
+  },
+  createPost({ commit }, payload: Post) {
+    const post = payload;
+    const user = firebase.auth().currentUser;
+
+    if (!(user && user.uid && user.displayName)) {
+      snackbar.showSnackbar("Please login to create a post", "warning");
+      return;
+    }
+
+    commit("setLoading", true);
+
+    firebase
+      .firestore()
+      .collection("posts")
+      .add({
+        uid: user.uid,
+        title: payload.title,
+        short_description: payload.short_description,
+        author: user.displayName
+      })
+      .then(ret => {
+        post.id = ret.id;
+        commit("addPost", post);
+        return post.id;
+      })
+      .then(id =>
+        firebase
+          .firestore()
+          .collection("posts")
+          .doc(id)
+          .collection("content")
+          .doc("html")
+          .set({
+            value: payload.contentHTML
+          })
+      )
+      .then(() => {
+        commit("setLoading", false);
+        router.push(`/post/${post.id}`);
+        snackbar.showSnackbar("Your post was submitted", "success");
+      })
+      .catch(err => snackbar.showSnackbar(err.message, "error"))
+      .finally(() => commit("setLoading", false));
+  },
+  updatePost({ state, commit }, id) {
+    commit("setLoading", true);
+    firebase
+      .firestore()
+      .collection("posts")
+      .doc(id)
+      .set(state.posts[id])
+      .then(() =>
+        firebase
+          .firestore()
+          .collection("posts")
+          .doc(id)
+          .collection("content")
+          .doc("html")
+          .set({
+            value: state.posts[id].contentHTML
+          })
+      )
+      .catch(err => snackbar.showSnackbar(err.message, "error"))
+      .finally(() => {
+        commit("setLoading", false);
+        commit("setSaved", { id, value: true });
+      });
+  },
+  deletePost({ commit }, id: string) {
+    commit("setLoading", true);
+    firebase
+      .firestore()
+      .collection("posts")
+      .doc(id)
+      .delete()
+      .then(() => {
+        commit("setLoading", false);
+      })
+      .catch(err => snackbar.showSnackbar(err.message, "error"))
+      .finally(() => commit("setLoading", false));
   }
 };
 
 const mutations: MutationTree<PostState> = {
+  updatePost(state, post: Post) {
+    if (post.title) {
+      state.posts[post.id].title = post.title;
+    }
+    if (post.short_description) {
+      state.posts[post.id].short_description = post.short_description;
+    }
+    if (post.contentHTML) {
+      state.posts[post.id].contentHTML = post.contentHTML;
+    }
+    state.posts[post.id] = Object.assign(
+      { saved: false },
+      state.posts[post.id]
+    );
+  },
   addPost(state, post: Post) {
     state.posts[post.id] = post;
   },
@@ -119,6 +184,9 @@ const mutations: MutationTree<PostState> = {
   },
   setSnapshot(state, snapshot: QuerySnapshot) {
     state.snapshot = snapshot;
+  },
+  setSaved(state, payload) {
+    state.posts[payload.id].saved = true;
   }
 };
 

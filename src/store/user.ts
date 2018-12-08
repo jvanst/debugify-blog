@@ -7,12 +7,12 @@ import router from "@/router";
 import snackbar from "@/plugins/snackbar";
 
 const state: UserState = {
+  uid: "",
   displayName: "",
   email: "",
   isLoggedIn: false,
   loading: false,
   photoURL: "",
-  error: false,
   permission: 0
 };
 
@@ -28,6 +28,7 @@ const actions: ActionTree<UserState, RootState> = {
         if (ret.user) {
           dispatch("getPermission");
           commit("setUser", {
+            uid: ret.user.uid,
             displayName: ret.user.displayName,
             email: ret.user.email,
             photoUrl: ret.user.photoURL,
@@ -53,6 +54,7 @@ const actions: ActionTree<UserState, RootState> = {
         if (ret.user) {
           dispatch("getPermission");
           commit("setUser", {
+            uid: ret.user.uid,
             displayName: ret.user.displayName,
             email: ret.user.email,
             photoUrl: ret.user.photoURL,
@@ -77,6 +79,7 @@ const actions: ActionTree<UserState, RootState> = {
       .then(ret => {
         if (ret.user) {
           commit("setUser", {
+            uid: ret.user.uid,
             displayName: ret.user.displayName,
             email: ret.user.email,
             photoUrl: ret.user.photoURL,
@@ -164,6 +167,7 @@ const actions: ActionTree<UserState, RootState> = {
 
 const mutations: MutationTree<UserState> = {
   setUser(state, payload) {
+    state.uid = payload.uid;
     state.displayName = payload.displayName;
     state.email = payload.email;
     state.photoURL = payload.photoURL;

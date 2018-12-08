@@ -17,9 +17,9 @@
     <v-btn
       flat
       icon
-      to="/create"
-      href="/create"
-      v-if="user.permission > 20"
+      to="/write"
+      href="/write"
+      v-if="user.permission >= 50"
       class="mr-3"
       >
       <v-icon>add</v-icon>
@@ -81,7 +81,7 @@ import { UserState } from "@/store/types";
 
 @Component
 export default class App extends Vue {
-  title: string = "Blog";
+  title: string = "Debugify";
 
   @State(state => state.user)
   user!: UserState;

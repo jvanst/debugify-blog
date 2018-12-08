@@ -5,13 +5,13 @@ export interface RootState {
 }
 
 export interface UserState {
+  uid: string;
   displayName: string;
   email: string;
   isLoggedIn: boolean;
   permission: number;
   photoURL: string;
   loading: boolean;
-  error: boolean;
 }
 
 export interface Post {
@@ -21,6 +21,7 @@ export interface Post {
   date: number;
   short_description: string;
   contentHTML: string;
+  saved: boolean;
 }
 
 export interface PostState {

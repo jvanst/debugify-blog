@@ -40,6 +40,7 @@ export default class App extends Vue {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setUser({
+          uid: user.uid,
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL
@@ -48,6 +49,7 @@ export default class App extends Vue {
         this.getPermission();
       } else {
         this.setUser({
+          uid: "",
           displayName: "",
           email: "",
           photoURL: "",

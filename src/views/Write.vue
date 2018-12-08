@@ -19,7 +19,7 @@
     </v-card>
     <v-layout>
       <v-flex xs6 class="text-xs-left">
-        <uploadButton :image="image" v-on:upload="upload"/>
+        <upload-button :image="image" v-on:upload="upload"/>
       </v-flex>
       <v-flex xs6 class="text-xs-right">
         <v-btn
@@ -35,16 +35,16 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Action } from "vuex-class";
-import editor from "@/components/Editor.vue";
-import uploadButton from "@/components/ImageUpload.vue";
+import Editor from "@/components/Editor.vue";
+import UploadButton from "@/components/ImageUpload.vue";
 
 @Component({
   components: {
-    editor,
-    uploadButton
+    Editor,
+    UploadButton
   }
 })
-export default class Home extends Vue {
+export default class Write extends Vue {
   title: string = "";
   contentHTML: string = "";
   contentPlain: string = "";

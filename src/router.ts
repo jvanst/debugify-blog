@@ -21,10 +21,17 @@ export default new Router({
         import(/* webpackChunkName: "post" */ "./views/Single.vue")
     },
     {
-      path: "/create",
-      name: "create",
+      path: "/write",
+      name: "write",
       component: () =>
-        import(/* webpackChunkName: "post" */ "./views/Create.vue")
+        import(/* webpackChunkName: "write" */ "./views/Write.vue")
+    },
+    {
+      path: "/edit/:id",
+      name: "edit",
+      props: true,
+      component: () =>
+        import(/* webpackChunkName: "write" */ "./views/Edit.vue")
     },
     {
       path: "/login",
