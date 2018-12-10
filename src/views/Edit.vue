@@ -28,11 +28,10 @@
             <!-- <upload-button :image="image" v-on:upload="upload"/> -->
           </v-flex>
           <v-flex xs6 class="text-xs-right">
-            {{ post.saved }}
-            <v-chip label v-if="post.saved === false" class="mt-1">Unsaved</v-chip>
             <v-btn
               class="primary mr-0"
               @click.native="submit(id)"
+              :loading="loading"
               >Save</v-btn>
           </v-flex>
         </v-layout>
@@ -62,7 +61,7 @@ export default class Edit extends Vue {
   editor: any;
   post: any;
 
-  @State(state => state.post.loading)
+  @State(state => state.post.saving)
   loading: any;
 
   @Mutation("post/updatePost") updatePost: any;

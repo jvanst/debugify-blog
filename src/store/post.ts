@@ -9,7 +9,8 @@ import snackbar from "@/plugins/snackbar";
 const state: PostState = {
   posts: {},
   snapshot: null,
-  loading: false
+  loading: false,
+  saving: false
 };
 
 const getters: GetterTree<PostState, RootState> = {};
@@ -116,7 +117,7 @@ const actions: ActionTree<PostState, RootState> = {
       .finally(() => commit("setLoading", false));
   },
   updatePost({ state, commit }, id) {
-    commit("setLoading", true);
+    commit("setSaving", true);
     firebase
       .firestore()
       .collection("posts")
@@ -135,8 +136,9 @@ const actions: ActionTree<PostState, RootState> = {
       )
       .catch(err => snackbar.showSnackbar(err.message, "error"))
       .finally(() => {
-        commit("setLoading", false);
+        commit("setSaving", false);
         commit("setSaved", { id, value: true });
+        snackbar.showSnackbar("Your post was saved", "success");
       });
   },
   deletePost({ commit }, id: string) {
@@ -187,6 +189,9 @@ const mutations: MutationTree<PostState> = {
   },
   setSaved(state, payload) {
     state.posts[payload.id].saved = true;
+  },
+  setSaving(state, payload: boolean) {
+    state.saving = payload;
   }
 };
 

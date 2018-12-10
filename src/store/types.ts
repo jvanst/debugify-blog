@@ -28,4 +28,5 @@ export interface PostState {
   posts: { [id: string]: Post };
   snapshot: QuerySnapshot;
   loading: boolean;
+  saving: boolean;
 }
