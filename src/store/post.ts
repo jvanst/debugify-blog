@@ -52,7 +52,7 @@ const actions: ActionTree<PostState, RootState> = {
 
     if (!state.snapshot) {
       // If first time fetching
-      fetch
+      return fetch
         .get()
         .then(snapshot => {
           commit("setSnapshot", snapshot);
@@ -61,7 +61,7 @@ const actions: ActionTree<PostState, RootState> = {
         .catch(err => snackbar.showSnackbar(err.message, "error"))
         .finally(() => commit("setLoading", false));
     } else {
-      fetch
+      return fetch
         .startAt(state.snapshot.docs[state.snapshot.docs.length - 1]) // Start at last fetched doc
         .get()
         .then(snapshot => {
@@ -83,13 +83,14 @@ const actions: ActionTree<PostState, RootState> = {
 
     commit("setLoading", true);
 
-    firebase
+    return firebase
       .firestore()
       .collection("posts")
       .add({
         uid: user.uid,
         title: payload.title,
         short_description: payload.short_description,
+        header_image: payload.header_image,
         author: user.displayName
       })
       .then(ret => {
@@ -118,7 +119,7 @@ const actions: ActionTree<PostState, RootState> = {
   },
   updatePost({ state, commit }, id) {
     commit("setSaving", true);
-    firebase
+    return firebase
       .firestore()
       .collection("posts")
       .doc(id)
@@ -143,7 +144,7 @@ const actions: ActionTree<PostState, RootState> = {
   },
   deletePost({ commit }, id: string) {
     commit("setLoading", true);
-    firebase
+    return firebase
       .firestore()
       .collection("posts")
       .doc(id)

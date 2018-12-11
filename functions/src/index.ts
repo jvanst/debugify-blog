@@ -9,6 +9,7 @@ exports.createPost = functions.firestore
       author: snap.data().author,
       title: snap.data().title,
       short_description: snap.data().short_description,
+      header_image: snap.data().header_image,
       date: new Date().getTime(),
     });
   });

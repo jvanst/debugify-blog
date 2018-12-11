@@ -19,7 +19,7 @@
     </v-card>
     <v-layout>
       <v-flex xs6 class="text-xs-left">
-        <upload-button :image="image" v-on:upload="upload"/>
+        <upload-button :image="headerImage" v-on:upload="upload"/>
       </v-flex>
       <v-flex xs6 class="text-xs-right">
         <v-btn
@@ -48,7 +48,7 @@ export default class Write extends Vue {
   title: string = "";
   contentHTML: string = "";
   contentPlain: string = "";
-  image: string = "";
+  headerImage: string = "";
   editor: any;
 
   @State(state => state.post.loading)
@@ -60,7 +60,8 @@ export default class Write extends Vue {
     this.createPost({
       title: this.title,
       contentHTML: this.contentHTML,
-      short_description: this.contentPlain.substring(0, 60)
+      short_description: this.contentPlain.substring(0, 60),
+      header_image: this.headerImage
     });
   }
   input(e) {
@@ -68,7 +69,7 @@ export default class Write extends Vue {
     this.contentPlain = e.text;
   }
   upload(e) {
-    this.image = e;
+    this.headerImage = e;
   }
 }
 </script>

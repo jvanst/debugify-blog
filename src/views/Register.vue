@@ -100,6 +100,10 @@ export default class Home extends Vue {
 
   @Action("user/register") register: any;
 
+  $refs!: {
+    form: HTMLFormElement;
+  };
+
   submit() {
     if (this.$refs.form.validate()) {
       this.register({

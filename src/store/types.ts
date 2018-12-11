@@ -20,6 +20,7 @@ export interface Post {
   title: string;
   date: number;
   short_description: string;
+  header_image: string;
   contentHTML: string;
   saved: boolean;
 }
@@ -30,3 +31,5 @@ export interface PostState {
   loading: boolean;
   saving: boolean;
 }
+
+export interface ImageState {}

@@ -25,7 +25,7 @@
         </v-card>
         <v-layout class="mt-2">
           <v-flex xs6 class="text-xs-left">
-            <!-- <upload-button :image="image" v-on:upload="upload"/> -->
+            <!-- <upload-button :image="post.image" v-on:upload="upload"/> -->
           </v-flex>
           <v-flex xs6 class="text-xs-right">
             <v-btn
