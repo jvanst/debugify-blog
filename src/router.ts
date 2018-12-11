@@ -18,38 +18,38 @@ export default new Router({
       name: "single",
       props: true,
       component: () =>
-        import(/* webpackChunkName: "post" */ "./views/Single.vue")
+        import("./views/Single.vue")
     },
     {
       path: "/write",
       name: "write",
       component: () =>
-        import(/* webpackChunkName: "write" */ "./views/Write.vue")
+        import("./views/Write.vue")
     },
     {
       path: "/edit/:id",
       name: "edit",
       props: true,
       component: () =>
-        import(/* webpackChunkName: "write" */ "./views/Edit.vue")
+        import("./views/Edit.vue")
     },
     {
       path: "/login",
       name: "login",
       component: () =>
-        import(/* webpackChunkName: "login" */ "./views/Login.vue")
+        import("./views/Login.vue")
     },
     {
       path: "/register",
       name: "register",
       component: () =>
-        import(/* webpackChunkName: "register" */ "./views/Register.vue")
+        import("./views/Register.vue")
     },
     {
       path: "/recover",
       name: "recover",
       component: () =>
-        import(/* webpackChunkName: "recover" */ "./views/Recover.vue")
+        import("./views/Recover.vue")
     }
   ]
 });
