@@ -1,25 +1,18 @@
 <template>
   <v-card class="mb-3">
-    <image-fetch :imageRef="post.header_image">
-      <v-card
-        slot="loading"
-        height="100"
-        :color="dark ? 'grey darken-2' : 'grey lighten-2'"
-        flat
-        />
-      <div slot-scope="{ imageURL }">
-        <v-img 
-          :src="imageURL"
-          max-height="250px"
-        >
-          <v-layout v-if="post.uid === user.uid || user.permission === 100">
-            <v-flex class="text-xs-right">
-              <v-btn :to="`/edit/${post.id}`">Edit <v-icon right>create</v-icon></v-btn>
-            </v-flex>
-          </v-layout>
-        </v-img>
-      </div>
-    </image-fetch>
+    <v-responsive
+      height="250px"
+      max-height="250px"
+      max-width="1000px"
+      ref="headerImage"
+      >
+        <img
+          v-lazy="`sample`"
+          alt="header_image"
+          style="width: 100%;"
+          height="250px"
+          >
+    </v-responsive>
     <v-card-title class="display-1 pb-2">
       {{ post.title }}
       <v-spacer/>

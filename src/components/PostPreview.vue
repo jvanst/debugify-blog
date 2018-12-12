@@ -4,27 +4,19 @@
     :to="`/post/${post.id}`"
     :href="`/post/${post.id}`"
     >
-    
-    <image-fetch :imageRef="post.header_image">
-      <v-card
-        slot="loading"
-        height="100"
-        :color="dark ? 'grey darken-2' : 'grey lighten-2'"
-        flat
-        />
-      <div slot-scope="{ imageURL }">
-        <v-img 
-          :src="imageURL"
+    <v-responsive
+      height="100px"
+      max-height="100px"
+      max-width="1000px"
+      ref="headerImage"
+      >
+        <img
+          v-lazy="`sample`"
+          alt="header_image"
+          style="width: 100%;"
           height="100px"
           >
-          <v-layout v-if="post.uid === user.uid || user.permission === 100">
-            <v-flex class="text-xs-right">
-              <v-btn :to="`/edit/${post.id}`">Edit <v-icon right>create</v-icon></v-btn>
-            </v-flex>
-          </v-layout>
-        </v-img>
-      </div>
-    </image-fetch>
+    </v-responsive>
     <v-card-title class="headline pb-2">
       {{ post.title }}
       <v-spacer/>
@@ -33,7 +25,7 @@
       </span>
     </v-card-title>
     <v-card-title class="pt-0 pb-0">
-      By {{ post.author }}
+      By James
     </v-card-title>
     <v-card-text>
       {{ post.short_description }}

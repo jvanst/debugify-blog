@@ -1,9 +1,13 @@
 import Vue from "vue";
 import "./plugins/vuetify";
+import "./plugins/vue-lazy-load";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store/index";
 import "@/assets/css/snow.css";
+import "@mdi/font/css/materialdesignicons.css";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
+import "roboto-fontface/css/roboto/roboto-fontface.css";
 
 Vue.config.productionTip = false;
 

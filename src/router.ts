@@ -17,39 +17,33 @@ export default new Router({
       path: "/post/:id",
       name: "single",
       props: true,
-      component: () =>
-        import("./views/Single.vue")
+      component: () => import("./views/Single.vue")
     },
     {
       path: "/write",
       name: "write",
-      component: () =>
-        import("./views/Write.vue")
+      component: () => import("./views/Write.vue")
     },
     {
       path: "/edit/:id",
       name: "edit",
       props: true,
-      component: () =>
-        import("./views/Edit.vue")
+      component: () => import("./views/Edit.vue")
     },
     {
       path: "/login",
       name: "login",
-      component: () =>
-        import("./views/Login.vue")
+      component: () => import("./views/Login.vue")
     },
     {
       path: "/register",
       name: "register",
-      component: () =>
-        import("./views/Register.vue")
+      component: () => import("./views/Register.vue")
     },
     {
       path: "/recover",
       name: "recover",
-      component: () =>
-        import("./views/Recover.vue")
+      component: () => import("./views/Recover.vue")
     }
   ]
 });
