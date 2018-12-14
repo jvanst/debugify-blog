@@ -55,7 +55,11 @@
                     color="red lighten-1 white--text"
                     @click.native="loginWithGoogle()"
                   >
-                    <v-icon>mdi-google-plus</v-icon>
+                    <img
+                      :src="require('@/assets/image/google.svg')"
+                      width="30px"
+                      height="30px"
+                      />
                   </v-btn>
                 </v-flex>
                 <v-flex xs6 class="pl-1">
@@ -64,7 +68,11 @@
                     color="blue white--text"
                     @click.native="loginWithFacebook()"
                   >
-                    <v-icon>mdi-facebook-box</v-icon>
+                    <img
+                      :src="require('@/assets/image/facebook-box.svg')"
+                      width="30px"
+                      height="30px"
+                      />
                   </v-btn>
                 </v-flex>
                 <v-flex xs12>
