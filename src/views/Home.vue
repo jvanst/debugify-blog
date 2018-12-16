@@ -29,9 +29,9 @@ import PostPreviewLoading from "@/components/PostPreviewLoading.vue";
 
 @Component({
   components: {
-    PostPreview,
-    PostPreviewFetch,
-    PostPreviewLoading
+    PostPreview: () => import(/* webpackPreload: true */"@/components/PostPreview.vue"),
+    PostPreviewFetch: () => import(/* webpackPreload: true */"@/components/PostPreviewFetch.vue"),
+    PostPreviewLoading: () => import(/* webpackPreload: true */"@/components/PostPreviewLoading.vue")
   }
 })
 export default class Home extends Vue {}

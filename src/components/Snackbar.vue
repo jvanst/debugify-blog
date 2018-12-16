@@ -18,6 +18,13 @@
   </v-snackbar>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Snackbar extends Vue {}
+</script>
+
 <style>
 .v-snack__content {
   font-family: Roboto, sans-serif;

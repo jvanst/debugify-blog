@@ -9,7 +9,7 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { State, Getter, Action } from "vuex-class";
 
-import firebase from "@/firebase";
+import firebase from "firebase/app";
 import "firebase/storage";
 
 @Component

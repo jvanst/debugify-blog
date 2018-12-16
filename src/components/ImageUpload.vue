@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import firebase from "@/firebase";
+import firebase from "firebase/app";
 import "firebase/storage";
 
 @Component

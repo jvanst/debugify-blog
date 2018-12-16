@@ -14,16 +14,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { State, Action, Mutation } from "vuex-class";
-
-import Toolbar from "@/components/Toolbar.vue";
-import Snackbar from "@/components/Snackbar.vue";
-import firebase from "@/firebase";
+import { State } from "vuex-class";
 
 @Component({
   components: {
-    Toolbar,
-    Snackbar
+    Toolbar: () => import(/* webpackPreload: true */ "@/components/Toolbar.vue"),
+    Snackbar: () => import("@/components/Snackbar.vue")
   }
 })
 export default class App extends Vue {
@@ -31,37 +27,6 @@ export default class App extends Vue {
 
   @State(state => state.dark)
   dark!: Boolean;
-
-  @Action("user/getPermission") getPermission: any;
-
-  @Mutation("user/setUser") setUser: any;
-  @Mutation("user/setPermission") setPermission: any;
-  @Mutation("user/setLoggedIn") setLoggedIn: any;
-
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL
-        });
-        this.setLoggedIn(true);
-        this.getPermission();
-      } else {
-        this.setUser({
-          uid: "",
-          displayName: "",
-          email: "",
-          photoURL: "",
-          isLoggedIn: false
-        });
-        this.setLoggedIn(false);
-        this.setPermission(0);
-      }
-    });
-  }
 }
 </script>
 

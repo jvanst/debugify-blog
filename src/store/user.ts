@@ -2,7 +2,10 @@ import { Module, GetterTree, ActionTree, MutationTree } from "vuex";
 import { RootState, UserState } from "./types";
 import { DocumentData } from "firebase/firestore";
 
-import firebase from "@/firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+
 import router from "@/router";
 import snackbar from "@/plugins/snackbar";
 

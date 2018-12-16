@@ -2,6 +2,7 @@ import Vue from "vue";
 import vueLazy from "vue-lazyload";
 
 Vue.use(vueLazy, {
+  preLoad: 1.3,
   adapter: {
     loaded({
       bindType,

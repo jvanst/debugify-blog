@@ -79,6 +79,9 @@ import { Component, Vue } from "vue-property-decorator";
 import { State, Action, Mutation } from "vuex-class";
 import { UserState } from "@/store/types";
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 @Component
 export default class App extends Vue {
   title: string = "Debugify";
@@ -89,8 +92,37 @@ export default class App extends Vue {
   @State(state => state.dark)
   dark!: Boolean;
 
-  @Mutation("setDark") setDark;
-
   @Action("user/logout") logout: any;
+  @Action("user/getPermission") getPermission: any;
+
+  @Mutation("setDark") setDark;
+  @Mutation("user/setUser") setUser: any;
+  @Mutation("user/setPermission") setPermission: any;
+  @Mutation("user/setLoggedIn") setLoggedIn: any;
+
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setUser({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL
+        });
+        this.setLoggedIn(true);
+        this.getPermission();
+      } else {
+        this.setUser({
+          uid: "",
+          displayName: "",
+          email: "",
+          photoURL: "",
+          isLoggedIn: false
+        });
+        this.setLoggedIn(false);
+        this.setPermission(0);
+      }
+    });
+  }
 }
 </script>

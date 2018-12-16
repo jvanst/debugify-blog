@@ -2,9 +2,13 @@ import { Module, GetterTree, ActionTree, MutationTree } from "vuex";
 import { QuerySnapshot } from "firebase/firestore";
 import { RootState, PostState, Post } from "./types";
 
-import firebase from "@/firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 import router from "@/router";
 import snackbar from "@/plugins/snackbar";
+
+firebase.firestore().settings({ timestampsInSnapshots: true });
 
 const state: PostState = {
   posts: {},

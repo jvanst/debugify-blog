@@ -14,5 +14,26 @@ module.exports = {
     workboxOptions: {
       swSrc: "src/service-worker.js"
     }
+  },
+  pluginOptions: {
+    critical: {
+      inline: true,
+      base: "dist/",
+      width: 1300,
+      height: 900,
+      minify: true,
+      extract: true
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all"
+          }
+        }
+      }
+    }
   }
 };
