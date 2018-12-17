@@ -18,7 +18,7 @@ import { State } from "vuex-class";
 
 @Component({
   components: {
-    Toolbar: () => import(/* webpackPreload: true */ "@/components/Toolbar.vue"),
+    Toolbar: () => import("@/components/Toolbar.vue"),
     Snackbar: () => import("@/components/Snackbar.vue")
   }
 })

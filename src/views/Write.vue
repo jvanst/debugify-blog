@@ -37,6 +37,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { State, Action } from "vuex-class";
 import Editor from "@/components/Editor.vue";
 import UploadButton from "@/components/ImageUpload.vue";
+import "@/assets/css/snow.css";
 
 @Component({
   components: {
