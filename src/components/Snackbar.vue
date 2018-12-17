@@ -7,12 +7,7 @@
     right
   >
     {{ snackbarMessage }}
-    <v-btn
-      dark
-      flat
-      icon
-      @click="snackbarVisible = false"
-    >
+    <v-btn dark flat icon @click="snackbarVisible = false">
       <v-icon>close</v-icon>
     </v-btn>
   </v-snackbar>

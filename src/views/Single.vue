@@ -3,10 +3,10 @@
     <v-container id="post-container">
       <post-fetch :id="id">
         <template slot="loading">
-          <post-loading/>
+          <post-loading />
         </template>
         <template slot="post" slot-scope="{ post }">
-          <post :post="post"/>              
+          <post :post="post" />
         </template>
       </post-fetch>
     </v-container>

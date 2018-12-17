@@ -1,12 +1,8 @@
 <template>
-  <v-container
-    fluid
-    style="max-width:1000px"
-    class="mx-auto"
-    >
+  <v-container fluid style="max-width:1000px" class="mx-auto">
     <post-fetch :id="id">
       <template slot="loading">
-        <post-loading/>
+        <post-loading />
       </template>
       <template slot="post" slot-scope="{ post }">
         <v-card class="mb-3">
@@ -32,7 +28,8 @@
               class="primary mr-0"
               @click.native="submit(id)"
               :loading="loading"
-              >Save</v-btn>
+              >Save</v-btn
+            >
           </v-flex>
         </v-layout>
       </template>
@@ -46,14 +43,12 @@ import { State, Action, Mutation } from "vuex-class";
 import PostFetch from "@/components/PostFetch.vue";
 import PostLoading from "@/components/PostLoading.vue";
 import Editor from "@/components/Editor.vue";
-import UploadButton from "@/components/ImageUpload.vue";
 
 @Component({
   components: {
     PostFetch,
     PostLoading,
-    Editor,
-    UploadButton
+    Editor
   }
 })
 export default class Edit extends Vue {

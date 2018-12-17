@@ -1,6 +1,11 @@
 <template>
   <v-container fill-height>
-    <v-layout wrap align-center justify-center style="max-width:500px;margin:auto">
+    <v-layout
+      wrap
+      align-center
+      justify-center
+      style="max-width:500px;margin:auto"
+    >
       <v-flex>
         <v-card class="pa-4">
           <v-layout wrap>
@@ -37,13 +42,20 @@
                 </v-flex>
                 <v-flex xs12 class="pt-3 pb-3 mt-3">
                   <div
-                    :style="dark ? 'border-bottom: 1px solid rgba(255,255,255,0.7);' : 'border-bottom: 1px solid #212121;'"
+                    :style="
+                      dark
+                        ? 'border-bottom: 1px solid rgba(255,255,255,0.7);'
+                        : 'border-bottom: 1px solid #212121;'
+                    "
                     style="height: 12px; text-align: center"
-                    >
+                  >
                     <span
-                      :class="{ 'white grey--text text--darken-4' : !dark, 'grey darken-3 grey--text text--lighten-2' : dark }"
+                      :class="{
+                        'white grey--text text--darken-4': !dark,
+                        'grey darken-3 grey--text text--lighten-2': dark
+                      }"
                       class="subheading pr-3 pl-3"
-                      >
+                    >
                       Sign in With
                     </span>
                   </div>
@@ -59,7 +71,7 @@
                       :src="require('@/assets/image/google.svg')"
                       width="30px"
                       height="30px"
-                      />
+                    />
                   </v-btn>
                 </v-flex>
                 <v-flex xs6 class="pl-1">
@@ -72,26 +84,32 @@
                       :src="require('@/assets/image/facebook-box.svg')"
                       width="30px"
                       height="30px"
-                      />
+                    />
                   </v-btn>
                 </v-flex>
                 <v-flex xs12>
                   <div
-                    :style="dark ? 'border-bottom: 1px solid rgba(255,255,255,0.7);' : 'border-bottom: 1px solid #212121;'"
+                    :style="
+                      dark
+                        ? 'border-bottom: 1px solid rgba(255,255,255,0.7);'
+                        : 'border-bottom: 1px solid #212121;'
+                    "
                     style="height: 12px; text-align: center"
-                    ></div>
+                  ></div>
                 </v-flex>
                 <v-flex xs12 class="pt-4">
                   <router-link
                     to="/register"
                     class="pr-2"
                     :class="{ 'black--text': !dark, 'white--text': dark }"
-                  >Need an Account?</router-link>
+                    >Need an Account?</router-link
+                  >
                   <router-link
                     to="/recover"
                     class="pl-2"
                     :class="{ 'black--text': !dark, 'white--text': dark }"
-                  >Forgot your password?</router-link>
+                    >Forgot your password?</router-link
+                  >
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -107,7 +125,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { State, Action } from "vuex-class";
 import { UserState } from "@/store/types";
 
-@Component
+@Component({})
 export default class Login extends Vue {
   email: String = "";
   password: String = "";

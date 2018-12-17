@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot v-if="loading" name="loading"></slot>
-    <slot v-else name="post" :post="post"></slot> 
+    <slot v-else name="post" :post="post"></slot>
   </div>
 </template>
 

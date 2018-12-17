@@ -1,18 +1,12 @@
 <template>
   <v-toolbar app>
-    <v-toolbar-title class="pr-4"> 
-      {{ title }}
-    </v-toolbar-title>
+    <v-toolbar-title class="pr-4"> {{ title }} </v-toolbar-title>
     <v-toolbar-items>
-      <v-btn flat to="/" href="/">
-        Home
-      </v-btn>
+      <v-btn flat to="/" href="/"> Home </v-btn>
     </v-toolbar-items>
-    <v-spacer/>
+    <v-spacer />
     <v-toolbar-items v-if="!user.isLoggedIn">
-      <v-btn flat to="/login" href="/login">
-        Login
-      </v-btn>
+      <v-btn flat to="/login" href="/login"> Login </v-btn>
     </v-toolbar-items>
     <v-btn
       flat
@@ -21,7 +15,7 @@
       href="/write"
       v-if="user.permission >= 50"
       class="mr-3"
-      >
+    >
       <v-icon>add</v-icon>
     </v-btn>
     <v-menu
@@ -30,9 +24,9 @@
       offset-y
       left
       :min-width="300"
-      >
+    >
       <v-avatar slot="activator">
-        <v-img size="44px" v-if="user.photoURL" :src="user.photoURL"/>
+        <v-img size="44px" v-if="user.photoURL" :src="user.photoURL" />
         <v-icon v-else size="44px">account_circle</v-icon>
       </v-avatar>
       <v-card>
@@ -40,7 +34,7 @@
           <v-list-tile avatar>
             <v-list-tile-avatar>
               <v-avatar slot="activator">
-                <v-img size="44px" v-if="user.photoURL" :src="user.photoURL"/>
+                <v-img size="44px" v-if="user.photoURL" :src="user.photoURL" />
                 <v-icon v-else size="44px">account_circle</v-icon>
               </v-avatar>
             </v-list-tile-avatar>
@@ -59,15 +53,11 @@
             <v-list-tile-title>Dark Mode</v-list-tile-title>
           </v-list-tile>
         </v-list>
-        <v-divider/>
+        <v-divider />
         <v-card-actions>
-          <v-btn flat disabled>
-            Account
-          </v-btn>
-          <v-spacer/>
-          <v-btn flat @click.native="logout()">
-            Logout
-          </v-btn>
+          <v-btn flat disabled> Account </v-btn>
+          <v-spacer />
+          <v-btn flat @click.native="logout()"> Logout </v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>

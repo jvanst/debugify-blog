@@ -1,14 +1,10 @@
 <template>
   <v-app :dark="dark">
-    <toolbar/>
-    <v-content
-      :class="{ 'dark-background' : dark, 'light-background' : !dark }"
-      >
-      <keep-alive include="Home">
-        <router-view />
-      </keep-alive>
+    <toolbar />
+    <v-content :class="{ 'dark-background': dark, 'light-background': !dark }">
+      <keep-alive include="Home"> <router-view /> </keep-alive>
     </v-content>
-    <snackbar/>
+    <snackbar />
   </v-app>
 </template>
 

@@ -5,25 +5,23 @@
       max-height="250px"
       max-width="1000px"
       ref="headerImage"
-      >
-        <img
-          v-lazy="`sample`"
-          alt="header_image"
-          style="width: 100%;"
-          height="250px"
-          >
+    >
+      <img
+        v-lazy="`sample`"
+        alt="header_image"
+        style="width: 100%;"
+        height="250px"
+      />
     </v-responsive>
     <v-card-title class="display-1 pb-2">
       {{ post.title }}
-      <v-spacer/>
+      <v-spacer />
       <span class="caption">
         <i>{{ new Date(post.date).toLocaleString() }}</i>
       </span>
     </v-card-title>
-    <v-card-title class="pt-0 pb-0">
-      By: {{ post.author }}
-    </v-card-title>
-    <v-card-text v-html="post.contentHTML"/>
+    <v-card-title class="pt-0 pb-0"> By: {{ post.author }} </v-card-title>
+    <v-card-text v-html="post.contentHTML" />
   </v-card>
 </template>
 
@@ -31,13 +29,8 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { State } from "vuex-class";
 import { UserState } from "@/store/types";
-import ImageFetch from "@/components/ImageFetch.vue";
 
-@Component({
-  components: {
-    ImageFetch
-  }
-})
+@Component({})
 export default class Post extends Vue {
   @Prop({
     default: {

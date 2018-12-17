@@ -1,9 +1,5 @@
 <template>
-  <v-container
-    fluid
-    style="max-width:1000px"
-    class="mx-auto"
-    >
+  <v-container fluid style="max-width:1000px" class="mx-auto">
     <v-card class="mb-3">
       <v-text-field
         v-model="title"
@@ -14,19 +10,16 @@
         flat
       ></v-text-field>
     </v-card>
-    <v-card>
-      <editor :value="contentHTML" v-on:input="input" />
-    </v-card>
+    <v-card> <editor :value="contentHTML" v-on:input="input" /> </v-card>
     <v-layout>
-      <v-flex xs6 class="text-xs-left">
-        <upload-button :image="headerImage" v-on:upload="upload"/>
-      </v-flex>
+      <v-flex xs6 class="text-xs-left"> </v-flex>
       <v-flex xs6 class="text-xs-right">
         <v-btn
           class="primary mr-0 mt-3"
           @click.native="publish()"
           :loading="loading"
-          >Publish</v-btn>
+          >Publish</v-btn
+        >
       </v-flex>
     </v-layout>
   </v-container>
@@ -36,13 +29,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import { State, Action } from "vuex-class";
 import Editor from "@/components/Editor.vue";
-import UploadButton from "@/components/ImageUpload.vue";
 import "@/assets/css/snow.css";
 
 @Component({
   components: {
-    Editor,
-    UploadButton
+    Editor
   }
 })
 export default class Write extends Vue {

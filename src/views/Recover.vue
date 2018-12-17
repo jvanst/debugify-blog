@@ -1,6 +1,11 @@
 <template>
   <v-container fill-height>
-    <v-layout wrap align-center justify-center style="max-width:500px;margin:auto">
+    <v-layout
+      wrap
+      align-center
+      justify-center
+      style="max-width:500px;margin:auto"
+    >
       <v-flex>
         <v-card>
           <v-card-title>
@@ -22,14 +27,16 @@
               <router-link
                 to="/login"
                 :class="{ 'black--text': !dark, 'white--text': dark }"
-                >Back to login</router-link>
+                >Back to login</router-link
+              >
             </v-flex>
             <v-flex xs6 class="text-xs-right">
               <v-btn
                 class="primary"
                 :loading="user.loading"
                 @click.native="recover(email)"
-                >Recover</v-btn>
+                >Recover</v-btn
+              >
             </v-flex>
           </v-layout>
         </v-card>
@@ -43,7 +50,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { State, Action } from "vuex-class";
 import { UserState } from "@/store/types";
 
-@Component
+@Component({})
 export default class Recover extends Vue {
   email: String = "";
 
