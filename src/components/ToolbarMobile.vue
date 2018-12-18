@@ -7,7 +7,7 @@
       </v-flex>
       <v-flex xs4 class="text-xs-right">
         <user-menu size="36px" v-if="user.isLoggedIn" />
-        <v-btn icon else to="/login"> <v-icon>account_circle</v-icon> </v-btn>
+        <v-btn v-else small flat to="/login" class="mr-0 mt-2"> Login </v-btn>
       </v-flex>
     </v-layout>
   </v-toolbar>
