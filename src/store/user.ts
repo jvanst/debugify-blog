@@ -26,23 +26,31 @@ const actions: ActionTree<UserState, RootState> = {
     commit("setLoading", true);
     firebase
       .auth()
-      .signInWithEmailAndPassword(payload.email, payload.password)
-      .then(ret => {
-        if (ret.user) {
-          dispatch("getPermission");
-          commit("setUser", {
-            uid: ret.user.uid,
-            displayName: ret.user.displayName,
-            email: ret.user.email,
-            photoUrl: ret.user.photoURL,
-            isLoggedIn: true
-          });
-          commit("setLoggedIn", true);
-          commit("setLoading", false);
-          router.push("/");
-          snackbar.showSnackbar(`Welcome ${ret.user.displayName}!`, "success");
-        }
-      })
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() =>
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(payload.email, payload.password)
+          .then(ret => {
+            if (ret.user) {
+              dispatch("getPermission");
+              commit("setUser", {
+                uid: ret.user.uid,
+                displayName: ret.user.displayName,
+                email: ret.user.email,
+                photoUrl: ret.user.photoURL,
+                isLoggedIn: true
+              });
+              commit("setLoggedIn", true);
+              commit("setLoading", false);
+              router.push("/");
+              snackbar.showSnackbar(
+                `Welcome ${ret.user.displayName}!`,
+                "success"
+              );
+            }
+          })
+      )
       .catch(err => {
         snackbar.showSnackbar(err.message, "error");
         commit("setLoading", false);
@@ -52,23 +60,31 @@ const actions: ActionTree<UserState, RootState> = {
     commit("setLoading", true);
     firebase
       .auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(ret => {
-        if (ret.user) {
-          dispatch("getPermission");
-          commit("setUser", {
-            uid: ret.user.uid,
-            displayName: ret.user.displayName,
-            email: ret.user.email,
-            photoUrl: ret.user.photoURL,
-            isLoggedIn: true
-          });
-          commit("setLoggedIn", true);
-          commit("setLoading", false);
-          router.push("/");
-          snackbar.showSnackbar(`Welcome ${ret.user.displayName}!`, "success");
-        }
-      })
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() =>
+        firebase
+          .auth()
+          .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+          .then(ret => {
+            if (ret.user) {
+              dispatch("getPermission");
+              commit("setUser", {
+                uid: ret.user.uid,
+                displayName: ret.user.displayName,
+                email: ret.user.email,
+                photoUrl: ret.user.photoURL,
+                isLoggedIn: true
+              });
+              commit("setLoggedIn", true);
+              commit("setLoading", false);
+              router.push("/");
+              snackbar.showSnackbar(
+                `Welcome ${ret.user.displayName}!`,
+                "success"
+              );
+            }
+          })
+      )
       .catch(err => {
         snackbar.showSnackbar(err.message, "error");
         commit("setLoading", false);

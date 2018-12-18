@@ -23,10 +23,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import PostPreview from "@/components/PostPreview.vue";
-import PostPreviewFetch from "@/components/PostPreviewFetch.vue";
-import PostPreviewLoading from "@/components/PostPreviewLoading.vue";
-
 @Component({
   components: {
     PostPreview: () =>

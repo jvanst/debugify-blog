@@ -5,6 +5,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import Quill from "quill";
+import "@/assets/css/snow.css";
 
 @Component
 export default class Editor extends Vue {

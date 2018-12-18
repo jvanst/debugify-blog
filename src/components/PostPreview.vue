@@ -20,8 +20,20 @@
         <i>{{ new Date(post.date).toLocaleString() }}</i>
       </span>
     </v-card-title>
-    <v-card-title class="pt-0 pb-0"> By James </v-card-title>
-    <v-card-text> {{ post.short_description }} </v-card-text>
+    <v-card-text class="pa-1 pl-3">
+      <v-layout row>
+        <v-flex xs6>
+          <v-avatar slot="activator" size="26px">
+            <v-icon size="26px">account_circle</v-icon>
+          </v-avatar>
+          <span class="pl-2">{{ post.author }}</span>
+        </v-flex>
+        <v-flex xs6 class="text-xs-right">
+          <router-link v-if="post.uid === user.uid" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
+        </v-flex>
+      </v-layout>
+    </v-card-text>
+    <v-card-text> {{ post.short_description.substring(0, 200) }} </v-card-text>
   </v-card>
 </template>
 

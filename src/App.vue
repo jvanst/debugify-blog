@@ -15,10 +15,14 @@ import { State } from "vuex-class";
 
 @Component({
   components: {
-    Toolbar: () => import("@/components/Toolbar.vue"),
-    ToolbarMobile: () => import("@/components/ToolbarMobile.vue"),
-    Bottombar: () => import("@/components/BottomBar.vue"),
-    Snackbar: () => import("@/components/Snackbar.vue")
+    Toolbar: () =>
+      import(/* webpackPreload: true */ "@/components/Toolbar.vue"),
+    ToolbarMobile: () =>
+      import(/* webpackPreload: true */ "@/components/ToolbarMobile.vue"),
+    Bottombar: () =>
+      import(/* webpackPreload: true */ "@/components/BottomBar.vue"),
+    Snackbar: () =>
+      import(/* webpackPreload: true */ "@/components/Snackbar.vue")
   }
 })
 export default class App extends Vue {
