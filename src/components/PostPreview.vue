@@ -7,7 +7,7 @@
       ref="headerImage"
     >
       <img
-        v-lazy="`sample`"
+        v-lazy="post.header_image"
         alt="header_image"
         style="width: 100%;"
         height="100px"
@@ -38,7 +38,8 @@ export default class PostPreview extends Vue {
       uid: String,
       title: String,
       author: String,
-      short_description: String
+      short_description: String,
+      header_image: String
     }
   })
   post!: Object;

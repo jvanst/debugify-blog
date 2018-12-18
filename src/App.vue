@@ -1,10 +1,11 @@
 <template>
   <v-app :dark="dark">
-    <toolbar />
+    <toolbar v-if="$vuetify.breakpoint.mdAndUp" />
+    <toolbar-mobile v-else />
     <v-content :class="{ 'dark-background': dark, 'light-background': !dark }">
       <keep-alive include="Home"> <router-view /> </keep-alive>
     </v-content>
-    <snackbar />
+    <bottombar v-if="$vuetify.breakpoint.smAndDown" /> <snackbar />
   </v-app>
 </template>
 
@@ -15,6 +16,8 @@ import { State } from "vuex-class";
 @Component({
   components: {
     Toolbar: () => import("@/components/Toolbar.vue"),
+    ToolbarMobile: () => import("@/components/ToolbarMobile.vue"),
+    Bottombar: () => import("@/components/BottomBar.vue"),
     Snackbar: () => import("@/components/Snackbar.vue")
   }
 })

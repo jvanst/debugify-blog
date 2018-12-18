@@ -18,49 +18,7 @@
     >
       <v-icon>add</v-icon>
     </v-btn>
-    <v-menu
-      v-if="user.isLoggedIn"
-      :close-on-content-click="false"
-      offset-y
-      left
-      :min-width="300"
-    >
-      <v-avatar slot="activator">
-        <v-img size="44px" v-if="user.photoURL" :src="user.photoURL" />
-        <v-icon v-else size="44px">account_circle</v-icon>
-      </v-avatar>
-      <v-card>
-        <v-list>
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <v-avatar slot="activator">
-                <v-img size="44px" v-if="user.photoURL" :src="user.photoURL" />
-                <v-icon v-else size="44px">account_circle</v-icon>
-              </v-avatar>
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title> {{ user.displayName }}</v-list-tile-title>
-              <v-list-tile-sub-title> {{ user.email }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list>
-          <v-list-tile @click.native="setDark(!dark)">
-            <v-list-tile-action>
-              <v-switch :value="dark"></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-title>Dark Mode</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-        <v-divider />
-        <v-card-actions>
-          <v-btn flat disabled> Account </v-btn>
-          <v-spacer />
-          <v-btn flat @click.native="logout()"> Logout </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-menu>
+    <user-menu size="42px" v-if="user.isLoggedIn" />
   </v-toolbar>
 </template>
 
@@ -72,47 +30,15 @@ import { UserState } from "@/store/types";
 import firebase from "firebase/app";
 import "firebase/auth";
 
-@Component
+@Component({
+  components: {
+    UserMenu: () => import("@/components/UserMenu.vue")
+  }
+})
 export default class App extends Vue {
   title: string = "Debugify";
 
   @State(state => state.user)
   user!: UserState;
-
-  @State(state => state.dark)
-  dark!: Boolean;
-
-  @Action("user/logout") logout: any;
-  @Action("user/getPermission") getPermission: any;
-
-  @Mutation("setDark") setDark;
-  @Mutation("user/setUser") setUser: any;
-  @Mutation("user/setPermission") setPermission: any;
-  @Mutation("user/setLoggedIn") setLoggedIn: any;
-
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL
-        });
-        this.setLoggedIn(true);
-        this.getPermission();
-      } else {
-        this.setUser({
-          uid: "",
-          displayName: "",
-          email: "",
-          photoURL: "",
-          isLoggedIn: false
-        });
-        this.setLoggedIn(false);
-        this.setPermission(0);
-      }
-    });
-  }
 }
 </script>
