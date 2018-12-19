@@ -43,9 +43,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import { State, Action, Mutation } from "vuex-class";
 import { UserState } from "@/store/types";
 
-import firebase from "firebase/app";
-import "firebase/auth";
-
 @Component
 export default class UserMenu extends Vue {
   @Prop() size!: string;
@@ -57,36 +54,7 @@ export default class UserMenu extends Vue {
   dark!: Boolean;
 
   @Action("user/logout") logout: any;
-  @Action("user/getPermission") getPermission: any;
 
   @Mutation("setDark") setDark;
-  @Mutation("user/setUser") setUser: any;
-  @Mutation("user/setPermission") setPermission: any;
-  @Mutation("user/setLoggedIn") setLoggedIn: any;
-
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL
-        });
-        this.setLoggedIn(true);
-        this.getPermission();
-      } else {
-        this.setUser({
-          uid: "",
-          displayName: "",
-          email: "",
-          photoURL: "",
-          isLoggedIn: false
-        });
-        this.setLoggedIn(false);
-        this.setPermission(0);
-      }
-    });
-  }
 }
 </script>

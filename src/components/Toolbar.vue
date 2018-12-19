@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { State, Action, Mutation } from "vuex-class";
+import { State } from "vuex-class";
 import { UserState } from "@/store/types";
 
 import firebase from "firebase/app";

@@ -5,6 +5,7 @@
     :multi-line="snackbarMessage.length > 68"
     bottom
     right
+    :timeout="6000"
   >
     {{ snackbarMessage }}
     <v-btn dark flat icon @click="snackbarVisible = false">
