@@ -13,8 +13,7 @@ firebase.firestore().settings({ timestampsInSnapshots: true });
 const state: PostState = {
   posts: {},
   snapshot: null,
-  loading: false,
-  saving: false
+  loading: false
 };
 
 const getters: GetterTree<PostState, RootState> = {};
@@ -122,12 +121,17 @@ const actions: ActionTree<PostState, RootState> = {
       .finally(() => commit("setLoading", false));
   },
   updatePost({ state, commit }, id) {
-    commit("setSaving", true);
+    commit("setLoading", true);
     return firebase
       .firestore()
       .collection("posts")
       .doc(id)
-      .set(state.posts[id])
+      .update({
+        title: state.posts[id].title,
+        short_description: state.posts[id].short_description,
+        header_image: state.posts[id].header_image,
+        photo_credit: state.posts[id].photo_credit
+      })
       .then(() =>
         firebase
           .firestore()
@@ -141,8 +145,7 @@ const actions: ActionTree<PostState, RootState> = {
       )
       .catch(err => snackbar.showSnackbar(err.message, "error"))
       .finally(() => {
-        commit("setSaving", false);
-        commit("setSaved", { id, value: true });
+        commit("setLoading", false);
         snackbar.showSnackbar("Your post was saved", "success");
       });
   },
@@ -163,19 +166,11 @@ const actions: ActionTree<PostState, RootState> = {
 
 const mutations: MutationTree<PostState> = {
   updatePost(state, post: Post) {
-    if (post.title) {
-      state.posts[post.id].title = post.title;
-    }
-    if (post.short_description) {
-      state.posts[post.id].short_description = post.short_description;
-    }
-    if (post.contentHTML) {
-      state.posts[post.id].contentHTML = post.contentHTML;
-    }
-    state.posts[post.id] = Object.assign(
-      { saved: false },
-      state.posts[post.id]
-    );
+    Object.keys(post).forEach(key => {
+      if (key in state.posts[post.id]) {
+        state.posts[post.id][key] = post[key];
+      }
+    });
   },
   addPost(state, post: Post) {
     state.posts[post.id] = post;
@@ -191,12 +186,6 @@ const mutations: MutationTree<PostState> = {
   },
   setSnapshot(state, snapshot: QuerySnapshot) {
     state.snapshot = snapshot;
-  },
-  setSaved(state, payload) {
-    state.posts[payload.id].saved = true;
-  },
-  setSaving(state, payload: boolean) {
-    state.saving = payload;
   }
 };
 

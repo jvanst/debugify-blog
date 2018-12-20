@@ -19,23 +19,23 @@ firebase.auth().onAuthStateChanged(user => {
     });
     mutations.setLoggedIn(state, true);
     firebase
-        .firestore()
-        .collection("user")
-        .doc(user.uid)
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            const data: DocumentData = doc.data();
-            mutations.setPermission(state, data.permission);
-          } else {
-            firebase
-              .firestore()
-              .collection("user")
-              .doc(user.uid)
-              .set({ permission: 20 });
-              mutations.setPermission(state, 20);
-          }
-        });
+      .firestore()
+      .collection("user")
+      .doc(user.uid)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          const data: DocumentData = doc.data();
+          mutations.setPermission(state, data.permission);
+        } else {
+          firebase
+            .firestore()
+            .collection("user")
+            .doc(user.uid)
+            .set({ permission: 20 });
+          mutations.setPermission(state, 20);
+        }
+      });
   } else {
     mutations.setUser(state, {
       uid: "",
@@ -170,7 +170,7 @@ const actions: ActionTree<UserState, RootState> = {
         snackbar.showSnackbar(err.message, "error");
         commit("setLoading", false);
       });
-  },
+  }
 };
 
 const mutations: MutationTree<UserState> = {

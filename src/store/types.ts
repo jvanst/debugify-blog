@@ -21,15 +21,14 @@ export interface Post {
   date: number;
   short_description: string;
   header_image: string;
+  photo_credit: string;
   contentHTML: string;
-  saved: boolean;
 }
 
 export interface PostState {
   posts: { [id: string]: Post };
   snapshot: QuerySnapshot;
   loading: boolean;
-  saving: boolean;
 }
 
 export interface ImageState {}
