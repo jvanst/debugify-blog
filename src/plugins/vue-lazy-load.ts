@@ -3,30 +3,6 @@ import vueLazy from "vue-lazyload";
 
 Vue.use(vueLazy, {
   preLoad: 1.3,
-  adapter: {
-    loaded({
-      bindType,
-      el,
-      naturalHeight,
-      naturalWidth,
-      $parent,
-      src,
-      loading,
-      error,
-      Init
-    }) {
-      // do something here
-      // example for call LoadedHandler
-      // console.log(el.offsetWidth);
-    },
-    loading(listender, Init) {
-      // console.log(listender);
-      // console.log(listender.el.offsetWidth);
-    },
-    error(listender, Init) {
-      // console.log("error");
-    }
-  },
   filter: {
     size(listener, options) {
       listener.src = `w_${listener.el.offsetWidth},h_${
@@ -48,4 +24,3 @@ Vue.use(vueLazy, {
     }
   }
 });
-//

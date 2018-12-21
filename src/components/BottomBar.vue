@@ -5,9 +5,9 @@
       <v-icon>home</v-icon>
     </v-btn>
 
-    <v-btn value="favorites" color="primary" to="/write" exact flat disabled>
-      <span>Favorites</span>
-      <v-icon>favorite</v-icon>
+    <v-btn value="favorites" color="primary" to="/about" exact flat>
+      <span>About</span>
+      <v-icon>info</v-icon>
     </v-btn>
 
     <v-btn color="primary" flat disabled value="nearby">

@@ -14,6 +14,11 @@ export default new Router({
       component: Home
     },
     {
+      path: "/about",
+      name: "about",
+      component: () => import('./views/About.vue')
+    },
+    {
       path: "/post/:id",
       name: "single",
       props: true,

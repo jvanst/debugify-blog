@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar app class="transparent" flat>
+  <v-toolbar app class="transparent" flat absolute>
     <v-layout align-center justify-center row fill-height>
       <v-flex xs4 class="text-xs-left" />
       <v-flex xs4 class="text-xs-center">

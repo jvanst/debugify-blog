@@ -3,6 +3,7 @@
     <v-toolbar-title class="pr-4"> {{ title }} </v-toolbar-title>
     <v-toolbar-items>
       <v-btn flat to="/" href="/"> Home </v-btn>
+      <v-btn flat to="/about" href="/about"> About </v-btn>
     </v-toolbar-items>
     <v-spacer />
     <v-toolbar-items v-if="!user.isLoggedIn">

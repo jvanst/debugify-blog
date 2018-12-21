@@ -30,24 +30,28 @@
           </v-card>
         <v-layout row wrap class="mt-2">
           <v-flex xs6>
-            <v-text-field
-              :value="post.header_image"
-              @input="updateHeaderImage"
-              label="Image Header"
-              class="mb-3 mr-1"
-              hide-details
-              box
-            ></v-text-field>
+            <v-card flat>
+              <v-text-field
+                :value="post.header_image"
+                @input="updateHeaderImage"
+                label="Image Header"
+                class="mb-3 mr-1"
+                hide-details
+                box
+              ></v-text-field>
+            </v-card>
           </v-flex>
           <v-flex xs6>
-            <v-text-field
-              :value="post.photo_credit"
-              @input="updatePhotoCredit"
-              label="Image Credit"
-              class="mb-3 ml-1"
-              hide-details
-              box
-            ></v-text-field>
+            <v-card flat>
+              <v-text-field
+                :value="post.photo_credit"
+                @input="updatePhotoCredit"
+                label="Image Credit"
+                class="mb-3 ml-1"
+                hide-details
+                box
+              ></v-text-field>
+            </v-card>
           </v-flex>
           <v-flex xs12 class="text-xs-right">
             <v-btn
