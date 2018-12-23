@@ -1,4 +1,6 @@
-# blog
+# Debugify
+
+Debugify is open source blogging software built with VueJS and Firebase, with progessiveness and preformance as its main goal. The project was created for TypeScript and Vue practice in my spare time.
 
 ## Project setup
 ```
@@ -24,6 +26,3 @@ yarn run test
 ```
 yarn run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
