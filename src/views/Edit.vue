@@ -25,9 +25,39 @@
             box
             />
         </v-card>
-          <v-card flat>
-            <editor :value="post.contentHTML" v-on:input="input" class="mb-3" />
-          </v-card>
+
+        <v-tabs
+          v-model="mode"
+          color="transparent"
+          slider-color="primary"
+        >
+          <v-tab>
+            Text
+          </v-tab>
+          <v-tab>
+            HTML
+          </v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <editor :value="post.contentHTML" v-on:input="input" class="mb-3" />
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-textarea 
+                :value="post.contentHTML"
+                @input="updateContentHTML"
+                label="Content"
+                class="mb-3"
+                hide-details
+                box
+                :rows="15"
+                />
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+
+          
         <v-layout row wrap class="mt-2">
           <v-flex xs6>
             <v-card flat>
@@ -85,6 +115,7 @@ export default class Edit extends Vue {
   @Prop() id!: string;
   editor: any;
   post: any;
+  mode: number = 0;
 
   @State(state => state.post.loading)
   loading: any;
@@ -96,6 +127,13 @@ export default class Edit extends Vue {
     this.updatePost({
       id: this.id,
       title: e
+    });
+  }
+
+  updateContentHTML(e) {
+    this.updatePost({
+      id: this.id,
+      contentHTML: e
     });
   }
 

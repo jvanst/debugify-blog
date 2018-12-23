@@ -13,27 +13,30 @@
         height="250px"
       />
     </v-responsive>
-    <v-card-title class="display-1 pb-2">
-      {{ post.title }}
-      <v-spacer />
-      <span class="caption">
-        <i>{{ new Date(post.date).toLocaleString() }}</i>
-      </span>
-    </v-card-title>
-    <v-card-text class="pa-1 pl-3">
-      <v-layout row>
-        <v-flex xs6>
-          <v-avatar slot="activator" size="26px">
-            <v-icon size="26px">account_circle</v-icon>
-          </v-avatar>
-          <span class="pl-2">{{ post.author }}</span>
-        </v-flex>
-        <v-flex xs6 class="text-xs-right">
-          <router-link v-if="post.uid === user.uid" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
-        </v-flex>
-      </v-layout>
-    </v-card-text>
-    <v-card-text v-html="post.contentHTML" />
+    <div class="pa-2">
+      <v-card-title class="display-1 pl-3 pt-3 pb-2">
+        {{ post.title }}
+      </v-card-title>
+      <v-list two-line dense class="transparent">
+        <v-list-tile>
+          <v-list-tile-avatar>
+            <v-avatar slot="activator" size="38px">
+              <v-icon size="38px">account_circle</v-icon>
+            </v-avatar>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title> {{ post.author }} </v-list-tile-title>
+            <v-list-tile-sub-title>
+              {{ new Date(post.date).toLocaleString() }}
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <router-link v-if="post.uid === user.uid" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+      <v-card-text v-html="post.contentHTML" />
+    </div>
   </v-card>
 </template>
 
