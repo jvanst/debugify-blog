@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid style="max-width:1000px" class="mx-auto">
+  <v-container fluid style="max-width:1200px" class="mx-auto">
     <post-fetch :id="id">
       <template slot="loading">
         <post-loading />
@@ -56,8 +56,6 @@
             </v-card>
           </v-tab-item>
         </v-tabs>
-
-          
         <v-layout row wrap class="mt-2">
           <v-flex xs6>
             <v-card flat>
@@ -83,7 +81,14 @@
               ></v-text-field>
             </v-card>
           </v-flex>
-          <v-flex xs12 class="text-xs-right">
+          <v-flex xs6>
+            <v-btn
+              class="ml-0"
+              outline
+              :to="`/post/${post.id}`"
+              >View Post</v-btn>
+          </v-flex>
+          <v-flex xs6 class="text-xs-right">
             <v-btn
               class="primary mr-0"
               @click.native="submit(id)"
