@@ -40,7 +40,7 @@
         <v-card-text class="text-xs-center pt-1 caption"
           >Photo by {{ post.photo_credit }}</v-card-text
         >
-        <router-link v-if="post.uid === user.uid" class="pl-3" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
+        <router-link v-if="post.uid === user.uid || user.permission === 100" class="pl-3" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
         <v-card-text v-html="post.contentHTML" />
       </v-card>
     </v-flex>

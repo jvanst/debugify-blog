@@ -29,7 +29,7 @@
           <span class="pl-2">{{ post.author }}</span>
         </v-flex>
         <v-flex xs6 class="text-xs-right">
-          <router-link v-if="post.uid === user.uid" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
+          <router-link v-if="post.uid === user.uid || user.permission === 100" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
         </v-flex>
       </v-layout>
     </v-card-text>

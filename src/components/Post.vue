@@ -31,7 +31,7 @@
             </v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <router-link v-if="post.uid === user.uid" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
+            <router-link v-if="post.uid === user.uid || user.permission === 100" class="pr-2" :to="`/edit/${post.id}`" :href="`/edit/${post.id}`">Edit Article</router-link>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
