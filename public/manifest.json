@@ -1,20 +1,20 @@
 {
-  "name": "Debugify",
-  "short_name": "Debugify",
-  "icons": [
-      {
-          "src": "./img/icons/android-chrome-192x192.png?v=KmnAgxvbQ6",
-          "sizes": "192x192",
-          "type": "image/png"
-      },
-      {
-          "src": "./img/icons/android-chrome-512x512.png?v=KmnAgxvbQ6",
-          "sizes": "512x512",
-          "type": "image/png"
-      }
-  ],
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+    "name": "Debugify",
+    "short_name": "Debugify",
+    "icons": [
+        {
+            "src": "/img/icons/android-chrome-192x192.png?v=alQz0Y63YR",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/icons/android-chrome-512x512.png?v=alQz0Y63YR",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#0091ea",
+    "background_color": "#0091ea",
+    "start_url": "/",
+    "display": "standalone"
 }
